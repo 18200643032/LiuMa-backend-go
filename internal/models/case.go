@@ -3,7 +3,8 @@ package models
 import "LiuMa-backend-go/internal/database"
 
 type CaseType int
-type CaseHeadersType int
+type CaseDataType int
+type CaseData int
 
 const (
 	UnknownCaseType CaseType = iota
@@ -13,25 +14,32 @@ const (
 	DELETE
 )
 const (
-	UnknownCaseHeadersType CaseHeadersType = iota
+	UnknownCaseDataType CaseDataType = iota
 	Params
 	FROM_DATA
 	JSON
 	FILE
 )
 
+const (
+	UnknownCaseData CaseData = iota
+	DATA_DATA
+	DATA_JSON
+)
+
 type Case struct {
-	Id          string          `json:"id"`
-	Name        string          `json:"name"`
-	Level       string          `json:"level"`
-	Type        CaseType        `json:"type"`
-	Description string          `json:"description"`
-	Url         string          `json:"url"`
-	Headers     string          `json:"headers"`
-	HeadersType CaseHeadersType `json:"headersType"`
-	CreateTime  int64           `json:"createTime"`
-	UpdateTime  int64           `json:"updateTime"`
-	Status      string          `json:"status"`
+	Id          string       `json:"id"`
+	Name        string       `json:"name"`
+	Level       string       `json:"level"`
+	Type        CaseType     `json:"type"`
+	Description string       `json:"description"`
+	Url         string       `json:"url"`
+	Headers     string       `json:"headers"`
+	DataType    CaseDataType `json:"headersType"`
+	Data        CaseData     `json:"data"`
+	CreateTime  int64        `json:"createTime"`
+	UpdateTime  int64        `json:"updateTime"`
+	Status      string       `json:"status"`
 }
 
 func (Case) TableName() string {
