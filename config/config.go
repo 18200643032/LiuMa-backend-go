@@ -2,9 +2,10 @@ package config
 
 import (
 	"LiuMa-backend-go/internal/database"
-	"gopkg.in/ini.v1"
 	"os"
 	"strings"
+
+	"gopkg.in/ini.v1"
 )
 
 type config struct {
