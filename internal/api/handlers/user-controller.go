@@ -5,7 +5,6 @@ import (
 	"LiuMa-backend-go/internal/database"
 	"LiuMa-backend-go/internal/models"
 	"LiuMa-backend-go/internal/utils"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
@@ -13,7 +12,7 @@ import (
 
 // 用户注册
 func Register(c *gin.Context) {
-	var user models.User
+	var user models.UserRegisterCommand
 	appG := utils.Gin{C: c}
 	err := c.BindJSON(&user)
 	if err != nil {
@@ -21,7 +20,7 @@ func Register(c *gin.Context) {
 		return
 	}
 	var count int64
-	database.DB.Model(&models.User{}).Where("account = ?", user.Account).Count(&count)
+	database.DB.Model(&models.User{}).Where("username = ?", user.Username).Count(&count)
 	if count > 0 {
 		appG.Response(http.StatusBadRequest, e.ERROR_EXIST_TAG, nil)
 		return
@@ -38,16 +37,14 @@ func Register(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"mgs": "注册成功"})
+	appG.Response(http.StatusOK, e.SUCCESS, nil)
 
 }
 
 // 用户登录
 func Login(c *gin.Context) {
-	var loginInfo struct {
-		Account  string `json:"account" binding:"required"`
-		Password string `json:"password" binding:"required"`
-	}
+	var loginInfo models.UserLoginCommand
+	appG := utils.Gin{C: c}
 	err := c.BindJSON(&loginInfo)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "请求参数错误"})
@@ -56,27 +53,20 @@ func Login(c *gin.Context) {
 
 	// 查询用户信息
 	var user models.User
-	if err = database.DB.Where("account = ?", loginInfo.Account).First(&user).Error; err != nil {
-		fmt.Println(err, "----------1")
-		c.JSON(http.StatusBadRequest, gin.H{"error": "手机号或密码错误"})
+	if err = database.DB.Where("username = ?", loginInfo.Username).First(&user).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "用户名或密码错误"})
 		return
 	}
-
 	// 验证密码
 	if err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(loginInfo.Password)); err != nil {
-		fmt.Println(err, "----------2")
-		p1, _ := bcrypt.GenerateFromPassword([]byte("111111"), bcrypt.DefaultCost)
-		//e1 := bcrypt.CompareHashAndPassword([]byte("111111"), []byte(p1))
-		fmt.Println(p1)
-
-		c.JSON(http.StatusBadRequest, gin.H{"error": "手机号或密码错误"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "密码错误"})
 		return
 	}
 
 	// 生成JWT Token
 	token, err := utils.GenerateToken(user.Id, user.Username, user.Email)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "服务器错误"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "生产token错误"})
 		return
 	}
 
@@ -85,7 +75,8 @@ func Login(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "服务器错误"})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"message": "登录成功", "token": token, "data": user})
+	appG.Response(http.StatusOK, e.SUCCESS, user)
+	//c.JSON(http.StatusOK, gin.H{"message": "登录成功", "token": token, "data": user})
 }
 
 // 用户详情
