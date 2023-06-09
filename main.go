@@ -1,13 +1,19 @@
 package main
 
 import (
+	"LiuMa-backend-go/config"
 	"LiuMa-backend-go/internal/api/routes"
-	"LiuMa-backend-go/internal/database"
+	"github.com/gin-gonic/gin"
+	"net/http"
+	"strings"
 )
 
 func main() {
-	database.InitMysql()
-	r := routes.InitRouter()
-	r.Run(":9999")
+	gin.SetMode(config.Config.BaseModel)
+	r := routes.SystemRouter()
+	if err := http.ListenAndServe(strings.Join([]string{config.Config.BaseHost,
+		":", config.Config.BasePort}, ""), r); err != nil {
+		panic("Port occupancy!!!")
+	}
 
 }
