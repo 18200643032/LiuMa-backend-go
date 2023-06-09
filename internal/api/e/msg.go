@@ -1,5 +1,7 @@
 package e
 
+import "github.com/gin-gonic/gin"
+
 func MsgFlags(code int) string {
 	switch code {
 	case SUCCESS:
@@ -72,6 +74,11 @@ func GetMsg(code int) string {
 	if msg != "" {
 		return msg
 	}
-
 	return MsgFlags(ERROR)
+}
+
+// ErrorMsg 错误回复 code 状态  error错误信息
+func ErrorMsg(c *gin.Context, code int, error string) {
+	c.JSON(code, map[string]any{"code": code, "error": error})
+	c.Abort()
 }

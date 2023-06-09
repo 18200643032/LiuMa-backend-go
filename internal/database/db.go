@@ -68,6 +68,7 @@ func InitMysql(read, writer string) {
 		},
 		Policy: dbresolver.RandomPolicy{},
 	}))
+	// 建表
 	Create(&models.User{})
 }
 
