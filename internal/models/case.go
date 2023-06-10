@@ -43,6 +43,7 @@ type Case struct {
 }
 
 func (Case) TableName() string {
+	Create(&Case{})
 	return "case"
 }
 

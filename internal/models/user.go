@@ -22,6 +22,8 @@ type User struct {
 }
 
 func (User) TableName() string {
+	// 建表
+	Create(&User{})
 	return "user"
 }
 

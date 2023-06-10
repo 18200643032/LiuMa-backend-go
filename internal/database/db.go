@@ -1,13 +1,11 @@
 package database
 
 import (
-	"LiuMa-backend-go/internal/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"
 	"gorm.io/plugin/dbresolver"
-	"log"
 	"time"
 )
 
@@ -68,16 +66,7 @@ func InitMysql(read, writer string) {
 		},
 		Policy: dbresolver.RandomPolicy{},
 	}))
-	// 建表
-	Create(&models.User{})
-}
 
-func Create(mode *models.User) {
-	if err := DB.Set("gorm:table_options",
-		"charset=utf8mb4").AutoMigrate(
-		mode); err != nil {
-		log.Printf("Create Table :%s\n", err.Error())
-	}
 }
 
 func NewDBLint() *gorm.DB {
