@@ -40,6 +40,8 @@ type Case struct {
 	CreateTime  int64        `json:"createTime"`
 	UpdateTime  int64        `json:"updateTime"`
 	Status      string       `json:"status"`
+
+	GroupID int64 `gorm:"group_id"`
 }
 
 func (Case) TableName() string {
