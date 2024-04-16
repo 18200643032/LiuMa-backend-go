@@ -1,31 +1,72 @@
-cmd/: 这个目录包含程序的入口文件（如 main.go），用于启动整个应用程序。
+# GinWeb脚手架
 
-internal/: 这个目录存放您项目的内部代码。按照 Go 社区推荐的项目布局，将代码放在 internal 目录下可以确保这些代码不会被其他外部项目导入和使用。
+#### 介绍
+基于go语言的gin web框架实现的web开发的脚手架。
 
-internal/api/: 这个目录包含与 API 相关的代码，如处理 HTTP 请求和响应的逻辑。
+###### 使用到的主要技术点
+1. 认证使用jwt，双token模式(accessToken、refreshToken)
+2. 数据库操作使用gorm
+3. 限流使用令牌桶
+4. 用户id生成使用的是雪花算法
+5. 日志管理使用zap
+6. 配置文件管理使用viper
+7. 代码热监听使用air
+8. 接口文档生成使用swagger
 
-internal/api/e: 存放状态码和msg信息
+#### 软件架构
+软件各模块代码说明
+1. main.go 程序的主入口
+2. config 存放程序的配置文件信息
+3. settings 读取配置文件中的信息
+4. routes 注册的路由信息
+5. middlewares 存放自定义中间件代码
+6. utils 存放一些公共方法
+7. models 存放数据库模型结构体、返回或请求参数的结构体等
+8. logger 自定义的日志处理方法
+9. controller 控制层代码，客户端请求后的处理函数
+10. logic 逻辑层代码，处理具体的业务逻辑
+11. dao 对数据库进行处理的代码
+12. sqls 存放一些sql语句代码
 
-internal/api/handlers/: 这里存放 API 的处理函数。每个文件代表一个功能模块，例如： user.go: 处理与用户相关的请求。
+#### 安装教程
 
-internal/api/middleware/: 这里存放 API 的中间件，用于处理跨越多个处理函数的通用逻辑。
+go代码热监听
+```shell 
+1. go get -u github.com/cosmtrek/air
+2. 编译：go build
+3. 将编译后的ari拷贝到GOPATH/bin下
+```
 
-internal/api/routes/: 这里存放 API 的路由配置。
+生成api文档
+```shell 
+1. go get -u github.com/swaggo/gin-swagger
+2. go get -u github.com/swaggo/swag
+3. 编译：进入cmd目录，执行go build
+4. 将编译后的swag拷贝到GOPATH/bin下
+5. go get -u github.com/swaggo/files
+6. swag init
+```
 
-internal/config/: 这个目录包含与项目配置相关的代码。
+#### 使用说明
+```shell 
+1. go mod tidy
+2. go run main.go
+```
+3. 使用postman对结果进行测试
 
-internal/database/: 这个目录包含与数据库连接和操作相关的代码。
+#### 参与贡献
+<font color="#0000dd">对于代码中的错误，还请批评指</font><br />
+1.  Fork 本仓库
+2.  新建 Feat_xxx 分支
+3.  提交代码
+4.  新建 Pull Request
 
-internal/models/: 这个目录包含定义数据模型的文件。每个文件定义了与特定领域相关的数据结构。
 
-internal/services/: 这个目录包含服务层的代码，用于处理业务逻辑。
+#### 特技
 
-internal/utils/: 这个目录包含一些通用的工具函数和库。
-
-hash.go: 提供密码哈希和验证功能。
-
-jwt.go: 用于生成和验证 JWT（JSON Web Token）。
-
-validation.go: 提供一些输入验证功能。
-
-go.mod: Go 项目的模块定义文件。它定义了项目的依
+1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
+2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
+3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
+4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
+5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
+6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
