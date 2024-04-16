@@ -1,0 +1,33 @@
+name: "liuma-backend"
+mode: "dev"
+port: 8081
+version: "v1.0.0"
+start_time: "2024-04-16"
+machine_id: 1
+allow_origins: 
+  - "http://localhost:9999"
+  - "http://testdomain.com"
+allow_methods:
+  - "GET"
+  - "POST"
+  - "OPTIONS"
+
+auth:
+  jwt_access_token_expire: 72000 # 两个小时
+  jwt_refresh_token_expire: 604800 # 7天
+
+log:
+  level: "debug"
+  filename: "zz.log"
+  max_size: 200
+  max_age: 30
+  max_backups: 7
+
+mysql:
+  host: "192.168.31.130"
+  port: 3336
+  user: "root"
+  password: "root"
+  dbname: "liuma"
+  max_open_connections: 20
+  max_idle_connections: 10
