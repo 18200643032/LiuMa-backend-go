@@ -1,9 +1,0 @@
-{"level":"INFO","time":"2024-04-16T16:40:54.507+0800","caller":"LiuMa-backend-go/main.go:111","msg":"Shutdown Server..."}
-{"level":"INFO","time":"2024-04-16T16:40:54.508+0800","caller":"LiuMa-backend-go/main.go:120","msg":"Server exiting..."}
-{"level":"FATAL","time":"2024-04-16T16:40:55.581+0800","caller":"LiuMa-backend-go/main.go:99","msg":"listen failed,","error":"listen tcp :9999: bind: address already in use"}
-{"level":"INFO","time":"2024-04-16T16:42:56.189+0800","caller":"middlewares/logHandler.go:30","msg":"/","status":200,"method":"GET","path":"/","query":"","ip":"::1","user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36","errors":"","cost":0.000294}
-{"level":"INFO","time":"2024-04-16T16:42:56.352+0800","caller":"middlewares/logHandler.go:30","msg":"/favicon.ico","status":200,"method":"GET","path":"/favicon.ico","query":"","ip":"::1","user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36","errors":"","cost":0.000023458}
-{"level":"ERROR","time":"2024-04-16T16:44:19.337+0800","caller":"controller/user.go:76","msg":"Login with invalid params","error":"Key: 'ParamsLogin.username' Error:Field validation for 'username' failed on the 'required' tag\nKey: 'ParamsLogin.password' Error:Field validation for 'password' failed on the 'required' tag"}
-{"level":"INFO","time":"2024-04-16T16:44:19.339+0800","caller":"middlewares/logHandler.go:30","msg":"/api/v1/login","status":200,"method":"POST","path":"/api/v1/login","query":"","ip":"::1","user-agent":"Apifox/1.0.0 (https://apifox.com)","errors":"","cost":0.00167825}
-{"level":"INFO","time":"2024-04-16T16:51:52.692+0800","caller":"LiuMa-backend-go/main.go:111","msg":"Shutdown Server..."}
-{"level":"INFO","time":"2024-04-16T16:51:52.694+0800","caller":"LiuMa-backend-go/main.go:120","msg":"Server exiting..."}
